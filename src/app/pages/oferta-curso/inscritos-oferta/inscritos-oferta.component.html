@@ -1,0 +1,103 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="!cargando">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row" *ngIf="datosOferta">
+                    <div class="col-3" style="text-align:center">
+                        <img [src]="datosOferta.FOTO_CURSO | imagen:'usuarios'" [alt]="datosOferta.NOMBRE_CURSO"
+                            class="w100 cursor">
+                        <br />
+                        <br />
+                        <br />
+                        <div class="badges">
+                            <span [class]="'p-tag p-tag-'+datosOferta.COLOR_ESTOFE">{{datosOferta.NOMBRE_ESTOFE}}</span>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="ui-g">
+                            <div class="col-12">
+                                <b>CURSO:</b> {{datosOferta.NOMBRE_CURSO}}
+                            </div>
+                            <div class="col-12">
+                                <b>CAPACITADOR:</b> {{datosOferta.CAPACITADOR}}
+                            </div>
+                            <div class="col-12">
+                                <b>LUGAR:</b> {{datosOferta.NOMBRE_LUGAR}}
+                            </div>
+                            <div class="col-12">
+                                <b>CUPO DE ESTUDIANTES:</b> {{datosOferta.CUPOS_OFERT}}
+                            </div>
+                            <div class="col-12">
+                                <b>NÚMERO DE HORAS:</b> {{datosOferta.NUMEROH_OFERT}}
+                            </div>
+                            <div class="col-12">
+                                <b>FECHA INICIO:</b> {{datosOferta.FECHAI_OFERT}}
+                            </div>
+                            <div class="col-12">
+                                <b>FECHA FIN:</b> {{datosOferta.FECHAF_OFERT}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Estudiantes Inscritos ({{ datos.length }})</h4>
+                    </div>
+
+                </div>
+                <br/>
+                <p-table [value]="datos" dataKey="id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>APELLIDOS</th>
+                            <th>NOMBRES</th>
+                            <th>FECHA</th>
+                            <th>ESTADO</th>
+                            <th>NOTA</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-fila>
+                        <tr>
+                            <td >{{fila.APELLIDOS_USU}} </td>
+                            <td >{{fila.NOMBRES_USU}} </td>
+                            <td >{{fila.FECHA_INSCR}} </td>
+                            <td >{{fila.NOMBRE_ESTINS}} </td>
+                            <td >{{fila.NOTA_INSCR}} </td>
+
+                       
+                        </tr>
+
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+

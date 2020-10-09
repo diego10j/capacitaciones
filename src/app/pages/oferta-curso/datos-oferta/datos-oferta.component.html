@@ -1,0 +1,108 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="row" *ngIf="!cargando">
+    <div class="col-12">
+
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="card-subtitle">Por favor llene cada uno de los campos de este formulario
+                            <code>*</code></h6>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form [formGroup]="form" (submit)="guardar()">
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="ID_CURSO">Curso</label>
+                                <p-dropdown [showClear]="true" [options]="comboCurso" [style]="{'width': '100%'}" placeholder="Seleccione..." formControlName="ID_CURSO" [filter]="true" required></p-dropdown>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="ID_TIPOC">Tipo Curso</label>
+                                <p-dropdown [showClear]="true" [options]="comboTipoCurso" [style]="{'width': '100%'}" placeholder="Seleccione..." formControlName="ID_TIPOC" [filter]="true" required></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="ID_LUGAR">Lugar</label>
+                                <p-dropdown [showClear]="true" [options]="comboLugar" [style]="{'width': '100%'}" placeholder="Seleccione..." formControlName="ID_LUGAR" [filter]="true" required ></p-dropdown>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="ID_MODAL">Modalidad</label>
+                                <p-dropdown [showClear]="true" [options]="comboModalidad" [style]="{'width': '100%'}" placeholder="Seleccione..." formControlName="ID_MODAL" [filter]="true"  required></p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="ID_ESTOFE">Estado</label>
+                                <p-dropdown [showClear]="true" [options]="comboEstadoOferta" [style]="{'width': '100%'}" placeholder="Seleccione..." formControlName="ID_ESTOFE" [filter]="true"  required></p-dropdown>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="ID_USU">Capacitador</label>
+                                <p-dropdown [showClear]="true" [options]="comboUsuario" [style]="{'width': '100%'}" placeholder="Seleccione..." formControlName="ID_USU" [filter]="true"  required></p-dropdown>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="FECHAI_OFERT">Fecha Inicio</label>
+                                <p-calendar id="FECHAI_OFERT" [style]="{'width': '100%'}" [locale]="es" dateFormat="yy-mm-dd" formControlName="FECHAI_OFERT" [minDate]="fechaActual" required></p-calendar>                    
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="FECHAF_OFERT">Fecha Fin</label>
+                                <p-calendar id="FECHAF_OFERT" [style]="{'width': '100%'}" [locale]="es" dateFormat="yy-mm-dd" formControlName="FECHAF_OFERT" [minDate]="fechaActual" required></p-calendar>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="CUPOS_OFERT">Cupos</label>
+                                <p-inputNumber id="CUPOS_OFERT" [style]="{'width': '100%'}"  inputId="CUPOS_OFERT" formControlName="CUPOS_OFERT" required></p-inputNumber>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="NUMEROH_OFERT">Horas de duración</label>
+                                <p-inputNumber id="NUMEROH_OFERT" [style]="{'width': '100%'}"  inputId="NUMEROH_OFERT" formControlName="NUMEROH_OFERT" required></p-inputNumber>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="FECHA_MAX_OFERT">Fecha Maxima de Inscripción</label>
+                                <p-calendar id="FECHA_MAX_OFERT" [style]="{'width': '100%'}" [locale]="es" dateFormat="yy-mm-dd" formControlName="FECHA_MAX_OFERT" [minDate]="fechaActual" required></p-calendar>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="URL_OFERT">URL Curso</label>
+                                <input id="URL_OFERT" pInputText [style]="{'width': '100%'}" type="url" formControlName="URL_OFERT">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group text-center">
+                            <div class="col-md-12">
+                                <button class="btn btn-info  btn-lg text-uppercase waves-effect waves-light"
+                                    type="submit" [disabled]="form.invalid">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <div class="form-group">
+                    <select class="form-control custom-select"  [(ngModel)]="perfilSeleccionado"  (change)="seleccionarPerfil()" >
+                        <option value="-1" disabled>Seleccione el Perfil</option>
+                        <option *ngFor="let item of comboPerfiles"  [value]="item.ID_PER">{{item.NOMBRE_PER}}</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row animated fadeIn fast"
+    *ngIf="cargando">
+    <div class="col-12">
+        
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div> 
+
+
+<div class="row"  *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Permisos del Perfil Seleccionado ({{ datos.length }})</h4>
+                    </div>
+
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary"
+                                    (click)="abrirCrearSweetAlert()">
+                                <i class="fa fa-plus"></i> 
+                                Crear 
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table  class="table table-bordered" >
+                        <thead>
+                            <tr>
+                                <th>OPCION</th>
+                                <th class="text-nowrap">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let fila of datos | filtro: busqueda : 'NOMBRE_OPCIO'"  >
+                                <td>{{fila.NOMBRE_OPCIO}}</td>
+
+                                <td class="text-nowrap text-center">
+        
+                                    <a (click)="eliminar(fila)" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Eliminar"
+                                        class="cursor"> 
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+              <!-- 
+                <button class="btn btn-secondary">Anteriores</button>
+                &nbsp;
+                <button class="btn btn-secondary">Siguientes</button> -->
+            </div>
+        </div>
+    </div>
+</div>

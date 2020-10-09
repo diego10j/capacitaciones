@@ -1,0 +1,86 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-md-12" *ngIf="!cargando">
+    <form class="form p-t-10" [formGroup]="form" (submit)="guardar()">
+
+        <div class="card">
+            <div class="row card-body">
+
+                <div class="col-md-7">
+                    <h4 class="card-title">Datos del Curso</h4>
+
+                    <div class="form-group ">
+                        <label for="NOMBRE_CURSO">Nombre</label>
+                        <input id="NOMBRE_CURSO" class="form-control" type="text" formControlName="NOMBRE_CURSO">
+                    </div>
+                    <div class="form-group ">
+
+                        <label for="ID_FORMA">Tipo de Formación</label>
+                        <select id="ID_FORMA" class="form-control custom-select" formControlName="ID_FORMA">
+                            <option value="-1" disabled>Seleccione...</option>
+                            <option *ngFor="let item of comboFormacion" [value]="item.ID_FORMA">{{item.NOMBRE_FORMA}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+
+                        <label for="ID_AREA">Área</label>
+                        <select id="ID_AREA" class="form-control custom-select" formControlName="ID_AREA">
+                            <option value="-1" disabled>Seleccione...</option>
+                            <option *ngFor="let item of comboAreas" [value]="item.ID_AREA">{{item.NOMBRE_AREA}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label for="DESCRIPCION_CURSO">Descripción</label>
+                        <textarea class="form-control" rows="5" id="DESCRIPCION_CURSO" 
+                            formControlName="DESCRIPCION_CURSO"></textarea>
+                            
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Imágen del Curso</h4>
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+                            </div>
+
+                            <input type="file" (change)="cambiarImagen($event.target.files[0])" style="width:100%">
+
+                            <br>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group text-center m-t-5">
+                <div class="col-md-12">
+                    <button class="btn btn-info  btn-lg text-uppercase waves-effect waves-light"
+                        type="submit" [disabled]="form.invalid">Guardar</button>
+                </div>
+            </div>
+
+        </div>
+       
+    </form>
+</div>
+

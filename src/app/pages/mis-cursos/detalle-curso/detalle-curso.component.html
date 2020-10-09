@@ -1,0 +1,111 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="!cargando">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row" *ngIf="datosOferta">
+                        <div class="col-3" style="text-align:center">
+                            <img [src]="datosOferta.FOTO_CURSO | imagen:'usuarios'" [alt]="datosOferta.NOMBRE_CURSO"
+                                class="w100 cursor">
+                            <br />
+                        </div>
+                        <div class="col-9">
+                            <div class="ui-g">
+                                <div class="col-12">
+                                    <b>CURSO:</b> {{datosOferta.NOMBRE_CURSO}}
+                                </div>
+                                <div class="col-12">
+                                    <b>CAPACITADOR:</b> {{datosOferta.CAPACITADOR}}
+                                </div>
+                                <div class="col-12">
+                                    <b>LUGAR:</b> {{datosOferta.NOMBRE_LUGAR}}
+                                </div>
+                                <div class="col-12">
+                                    <b>FECHA INICIO:</b> {{datosOferta.FECHAI_OFERT}}
+                                </div>
+                                <div class="col-12">
+                                    <b>FECHA FIN:</b> {{datosOferta.FECHAF_OFERT}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="lstick"></span>Material</h4>
+                    <p-table [value]="datosMaterial" dataKey="id">
+                        <ng-template pTemplate="header">
+                            <tr>
+
+                                <th>ARCHIVO</th>
+                                <th style="width: 3rem" class="text-nowrap"></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-fila>
+                            <tr>
+               
+                                <td>
+                                    {{fila.NOMBRE_ORIG_MATER }}
+                                </td>
+
+                        
+
+                                <td class="text-nowrap text-center">
+
+                                    <a (click)="descargar(fila)" data-toggle="tooltip" data-original-title="Descragar"
+                                    title="Descragar" class="cursor">
+                                    <i class="fa fa-download text-inverse m-r-10"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </ng-template>
+                    </p-table>   
+                   
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="lstick"></span>Horario</h4>
+                </div>
+
+
+                <ul class="feeds">
+                    <li *ngFor="let fila of datosHorario" >
+                        <div class="bg-light-info"><i class="fa fa-calendar-check-o"></i></div>  {{fila.FECHAC_HORAR}}
+                        <div class="bg-light-success"><i class="fa fa fa-clock-o"></i></div> DE {{fila.HORARIOI_HORAR}} A {{fila.HORARIOF_HORAR}} 
+                    </li>
+                   
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

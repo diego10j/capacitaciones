@@ -1,0 +1,131 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="card-subtitle">Por favor llene cada uno de los campos de este formulario para crear
+                            una cuenta de usuario <code>*</code></h6>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form id="loginform" autocomplete="off" [formGroup]="registerForm" (ngSubmit)="guardarUsuario()">
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="correo_usu">Email</label>
+                                <input id="correo_usu" class="form-control" type="email" formControlName="CORREO_USU">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="identificacion_usu">Cédula</label>
+                                <input id="identificacion_usu" class="form-control" type="number"
+                                    formControlName="IDENTIFICACION_USU">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="identificacion_usu">Nombres</label>
+                                <input class="form-control" id="nombres_usu" type="text" formControlName="NOMBRES_USU">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="identificacion_usu">Apellidos</label>
+                                <input class="form-control" id="apellidos_usu" type="text"
+                                    formControlName="APELLIDOS_USU">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="id_per">Perfil</label>
+                                <select id="id_per" class="form-control custom-select" formControlName="ID_PER">
+                                    <option value="-1" disabled>Seleccione el Perfil</option>
+                                    <option *ngFor="let item of comboPerfiles" [value]="item.ID_PER">{{item.NOMBRE_PER}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="FECHANAC_USU">Fecha de Nacimiento</label>
+                                <input id="FECHANAC_USU" type="date" class="form-control" placeholder="yyyy-mm-dd"
+                                    formControlName="FECHANAC_USU">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="celular_usu">Teléfono Móvil</label>
+                                <input id="celular_usu" class="form-control" type="text" formControlName="CELULAR_USU">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="convencional_usu">Teléfono Fijo</label>
+                                <input id="convencional_usu" class="form-control" type="text"
+                                    formControlName="CONVENCIONAL_USU">
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+
+                            <div class="form-group col-sm-6">
+                                <label for="GENERO_USU">Género</label>
+                                <select id="GENERO_USU" class="form-control custom-select" formControlName="GENERO_USU">
+                                    <option value="-1" disabled>Seleccione el Género</option>
+                                    <option value="M">MASCULINO </option>
+                                    <option value="F">FEMENINO </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label>Activo</label>
+                                <div class="checkbox checkbox-success">
+                                    <input id="'activo_usu" type="checkbox" formControlName="ACTIVO_USU"
+                                        class="filled-in chk-col-black">
+                                    <label for="activo_usu"></label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col text-danger">
+                                <p *ngIf="campoNoValido('APELLIDOS_USU')">* El nombre es obligatorio</p>
+                                <p *ngIf="campoNoValido('IDENTIFICACION_USU')">* El email es obligatorio y tiene que ser
+                                    válido</p>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group text-center m-t-20">
+                            <div class="col-xs-12">
+                                <button class="btn btn-info  btn-block text-uppercase waves-effect waves-light"
+                                    type="submit">Guardar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

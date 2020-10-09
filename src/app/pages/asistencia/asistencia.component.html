@@ -1,0 +1,123 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="!cargando">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row" *ngIf="datosOferta">
+                        <div class="col-3" style="text-align:center">
+                            <img [src]="datosOferta.FOTO_CURSO | imagen:'usuarios'" [alt]="datosOferta.NOMBRE_CURSO"
+                                class="w100 cursor">
+                            <br />
+                            <br />
+                            <br />
+                            <div class="badges">
+                                <span
+                                    [class]="'p-tag p-tag-'+datosOferta.COLOR_ESTOFE">{{datosOferta.NOMBRE_ESTOFE}}</span>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="ui-g">
+                                <div class="col-12">
+                                    <b>CURSO:</b> {{datosOferta.NOMBRE_CURSO}}
+                                </div>
+                                <div class="col-12">
+                                    <b>CAPACITADOR:</b> {{datosOferta.CAPACITADOR}}
+                                </div>
+                                <div class="col-12">
+                                    <b>LUGAR:</b> {{datosOferta.NOMBRE_LUGAR}}
+                                </div>
+                                <div class="col-12">
+                                    <b>CUPO DE ESTUDIANTES:</b> {{datosOferta.CUPOS_OFERT}}
+                                </div>
+                                <div class="col-12">
+                                    <b>NÚMERO DE HORAS:</b> {{datosOferta.NUMEROH_OFERT}}
+                                </div>
+                                <div class="col-12">
+                                    <b>FECHA INICIO:</b> {{datosOferta.FECHAI_OFERT}}
+                                </div>
+                                <div class="col-12">
+                                    <b>FECHA FIN:</b> {{datosOferta.FECHAF_OFERT}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="card-title">Estudiantes Inscritos ({{ datos.length }})</h4>
+                        </div>
+
+                    </div>
+                    <br />
+                    <p-table [value]="datos" [(selection)]="seleccionado" dataKey="ID_ESTINS">
+                        <ng-template pTemplate="header" styleClass="p-datatable-sm">
+                            <tr>
+                                <th style="width: 3rem"></th>
+                                <th>ESTUDIANTE</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-fila>
+
+                            <tr>
+                                <td>
+                                    <p-tableRadioButton [value]="fila"></p-tableRadioButton>
+                                </td>
+                                <td>{{fila.APELLIDOS_USU}} {{fila.NOMBRES_USU}}</td>
+                            </tr>
+
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="card-title">Asistencia</h4>
+                        </div>
+                    </div>
+                    <p-listbox [options]="datosHorario" [(ngModel)]="horasSeleccionado" [checkbox]="true"
+                        [multiple]="true" dataKey="ID_HORAR">
+
+                        <ng-template let-fila let-i="index" pTemplate="item">
+                            <div>
+                                <span style="float:right;margin:20px 10px 0 0"> {{fila.FECHAC_HORAR}} DE {{fila.HORARIOI_HORAR}} A {{fila.HORARIOF_HORAR}}</span>
+                            </div>
+                        </ng-template>
+
+                    </p-listbox>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

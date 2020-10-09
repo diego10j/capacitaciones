@@ -1,0 +1,111 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" style="overflow: auto;">
+    <div class="login-register">
+        <div class="login-box card">
+            <div class="card-body">
+                <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png"
+                        alt="Home" /><br /><img src="../assets/images/logo-text.png" alt="Home" /></a>
+                <h3 class="box-title">Registrarse</h3>
+                <h6 class="card-subtitle">Por favor llene cada uno de los campos de este formulario para crear una
+                    cuenta de usuario, recuerde que los campos con<code>*</code> son obligatorios</h6>
+                    <hr class="m-t-0">   
+                <form id="loginform" autocomplete="off" [formGroup]="registerForm"
+                    (ngSubmit)="crearUsuario()">
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="CORREO_USU">Email</label><code>*</code> 
+                            <input id="CORREO_USU" class="form-control" type="email" formControlName="CORREO_USU" required>                            
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="IDENTIFICACION_USU">Cédula</label><code>*</code> 
+                            <input id="IDENTIFICACION_USU" class="form-control" type="number"
+                                formControlName="IDENTIFICACION_USU" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="NOMBRES_USU">Nombres</label><code>*</code> 
+                            <input class="form-control" id="NOMBRES_USU" type="text" formControlName="NOMBRES_USU" required>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="APELLIDOS_USU">Apellidos</label><code>*</code> 
+                            <input class="form-control" id="APELLIDOS_USU" type="text" formControlName="APELLIDOS_USU" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="FECHANAC_USU">Fecha de Nacimiento</label><code>*</code> 
+                            <input id="FECHANAC_USU" type="date" class="form-control" placeholder="yyyy-mm-dd"
+                                formControlName="FECHANAC_USU" required>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="GENERO_USU">Género</label><code>*</code> 
+                            <select id="GENERO_USU" class="form-control custom-select" formControlName="GENERO_USU" required>
+                                <option value="-1" disabled>Seleccione el Género</option>
+                                <option value="M">MASCULINO </option>
+                                <option value="F">FEMENINO </option>
+                            </select>
+                        </div>
+                    </div>       
+                    
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="celular_usu">Teléfono Móvil</label><code>*</code> 
+                            <input id="celular_usu" class="form-control" type="text" formControlName="CELULAR_USU" required>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="convencional_usu">Teléfono Fijo</label>
+                            <input id="convencional_usu" class="form-control" type="text"
+                                formControlName="CONVENCIONAL_USU">
+                        </div>
+                    </div>    
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="CLAVE_USU">Clave</label><code>*</code> 
+                            <input class="form-control" id="CLAVE_USU" type="password" formControlName="CLAVE_USU" required>                            
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="CLAVE_USU2">Confirmar Clave</label> <code>*</code> 
+                            <input class="form-control" id="CLAVE_USU2" type="password" formControlName="CLAVE_USU2" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-primary p-t-0">
+
+                                <input id="checkbox-signup" type="checkbox" formControlName="terminos">
+
+                                <label for="checkbox-signup"> Al hacer clic en “Registrar”, aceptas los <a
+                                        href="#">Términos y Condiciones </a></label>
+                            </div>
+                        </div>
+                    </div>
+
+  
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"
+                            type="submit" [disabled]="registerForm.invalid" >Registrar</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            <p>¿Ya tienes una cuenta?<a routerLink="/login" class="text-info m-l-5"><b>Iniciar
+                                        sesión</b></a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->

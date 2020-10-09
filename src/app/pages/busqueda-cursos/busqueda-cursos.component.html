@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Modalidad</h4>
+                <p-listbox [options]="comboModalidad" [(ngModel)]="modalidadSeleccionada" [checkbox]="true"
+                    [multiple]="true" (onChange)="listar()"></p-listbox>
+           
+                <h4 class="card-title mt-3">Formación</h4>
+                <p-listbox [options]="comboFormacion" [(ngModel)]="formacionSeleccionada" [checkbox]="true"
+                    [multiple]="true" (onChange)="listar()"></p-listbox>
+
+                <h4 class="card-title mt-3">Área</h4>
+                <p-listbox [options]="comboAreas" [(ngModel)]="areaSeleccionada" [checkbox]="true"
+                    [multiple]="true" (onChange)="listar()"></p-listbox>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+
+
+                <p-table #dt [value]="datos" styleClass="p-datatable-sm p-datatable-customers" dataKey="ID_OFERT"
+                    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [loading]="cargando" [filterDelay]="0"
+                    [globalFilterFields]="['NOMBRE_CURSO','NOMBRE_MODAL']"
+                    currentPageReportTemplate="Mostrando {first} hasta {last} de {totalRecords} registros"
+                    [rowsPerPageOptions]="[10,25,50]">
+
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+
+                            <div class="col-8">
+                                <h4 class="card-title">
+                                </h4>
+                            </div>
+                            <div class="col">
+                                <div class="text-right">
+                                    <span class="p-input-icon-left">
+                                        <i class="fa fa-search"></i>
+                                        <input pInputText type="text"
+                                            (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="Busqueda Global" style="width: 100%;" />
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 3rem"></th>
+                            <th>CURSO</th>
+                            <th style="width: 7rem">FECHA INICIO</th>
+                            <th style="width: 7rem">FECHA FIN</th>
+                            <th style="width: 5rem">CUPOS</th>
+                            <th class="text-nowrap"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-fila let-expanded="expanded">
+                        <tr>
+                            <td>
+                                <a href="#" [pRowToggler]="fila">
+                                    <i [ngClass]="expanded ? 'fa fa-minus-square-o' : 'fa fa-plus-square' "></i>
+                                </a>
+                            </td>
+                            <td>{{fila.NOMBRE_CURSO}}</td>
+                            <td>{{fila.FECHAI_OFERT}}</td>
+                            <td>{{fila.FECHAF_OFERT}}</td>
+                            <td>{{fila.CUPOS}}</td>
+            
+                            <td class="text-nowrap text-center">
+                                <a (click)="abrirInscripcion(fila)" data-toggle="tooltip" class="cursor"
+                                    data-original-title="Inscribir" title="Actualizar">
+                                    <span class="text-blue">Inscribir aquí</span> 
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+
+                    <ng-template pTemplate="rowexpansion" let-fila>
+                        <tr>
+                            <td [attr.colspan]="7">
+                                <div class="row">
+                                    <div class="col-3" style="text-align:center">
+                                        <img [src]="fila.FOTO_CURSO | imagen:'usuarios'" [alt]="fila.NOMBRE_CURSO"
+                                            class="w100 cursor">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="ui-g">
+                                            <div class="col-12">
+                                                <b>CAPACITADOR:</b> {{fila.CAPACITADOR}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>LUGAR:</b> {{fila.NOMBRE_LUGAR}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>CUPO DE ESTUDIANTES:</b> {{fila.CUPOS_OFERT}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>NÚMERO DE HORAS:</b> {{fila.NUMEROH_OFERT}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>MODALIDAD:</b> {{fila.NOMBRE_MODAL}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>FECHA MÁXIMA INSCRIPCIÓN:</b> {{fila.FECHA_MAX_OFERT}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+
+
+            </div>
+        </div>
+    </div>
+</div>

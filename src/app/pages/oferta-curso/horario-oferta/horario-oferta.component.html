@@ -1,0 +1,194 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="!cargando">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row" *ngIf="datosOferta">
+                    <div class="col-3" style="text-align:center">
+                        <img [src]="datosOferta.FOTO_CURSO | imagen:'usuarios'" [alt]="datosOferta.NOMBRE_CURSO"
+                            class="w100 cursor">
+                        <br />
+                        <br />
+                        <br />
+                        <div class="badges">
+                            <span [class]="'p-tag p-tag-'+datosOferta.COLOR_ESTOFE">{{datosOferta.NOMBRE_ESTOFE}}</span>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="ui-g">
+                            <div class="col-12">
+                                <b>CURSO:</b> {{datosOferta.NOMBRE_CURSO}}
+                            </div>
+                            <div class="col-12">
+                                <b>CAPACITADOR:</b> {{datosOferta.CAPACITADOR}}
+                            </div>
+                            <div class="col-12">
+                                <b>LUGAR:</b> {{datosOferta.NOMBRE_LUGAR}}
+                            </div>
+                            <div class="col-12">
+                                <b>CUPO DE ESTUDIANTES:</b> {{datosOferta.CUPOS_OFERT}}
+                            </div>
+                            <div class="col-12">
+                                <b>NÚMERO DE HORAS:</b> {{datosOferta.NUMEROH_OFERT}}
+                            </div>
+                            <div class="col-12">
+                                <b>FECHA INICIO:</b> {{datosOferta.FECHAI_OFERT}}
+                            </div>
+                            <div class="col-12">
+                                <b>FECHA FIN:</b> {{datosOferta.FECHAF_OFERT}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div #calendarWrapper stop-click-propagation>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Horarios del Curso ({{ datos.length }})</h4>
+                    </div>
+
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary" (click)="showModalDialog()">
+                                <i class="fa fa-plus"></i>
+                                Crear
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+
+                <p-table [value]="datos" dataKey="id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>FECHA</th>
+                            <th>HORA INICIO</th>
+                            <th>HORA FIN</th>
+                            <th class="text-nowrap">ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-fila>
+                        <tr>
+                            <td pEditableColumn>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-calendar [appendTo]="calendarWrapper" [locale]="es" dateFormat="yy-mm-dd"
+                                            [(ngModel)]="fila.FECHAC_HORAR" [minDate]="fechaActual"
+                                            placeholder="yyyy-mm-dd" required>
+                                        </p-calendar>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{fila.FECHAC_HORAR | date: 'yyyy-MM-dd'}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+
+                            <td pEditableColumn>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-inputMask mask="99:99:99" [style]="{'width': '100%'}"
+                                            [(ngModel)]="fila.HORARIOI_HORAR" slotChar="hh:mm:ss" required>
+                                        </p-inputMask>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{fila.HORARIOI_HORAR}}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+
+                            <td pEditableColumn>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-inputMask mask="99:99:99" [style]="{'width': '100%'}"
+                                            [(ngModel)]="fila.HORARIOF_HORAR" slotChar="hh:mm:ss" required>
+                                        </p-inputMask>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{fila.HORARIOF_HORAR }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+
+                            <td class="text-nowrap text-center">
+                                <a (click)="actualizar(fila)" data-toggle="tooltip" class="cursor"
+                                    data-original-title="Guardar cambios">
+                                    <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                </a>
+
+                                <a (click)="eliminar(fila)" data-toggle="tooltip" data-original-title="Eliminar"
+                                    class="cursor">
+                                    <i class="fa fa-close text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="guardarHorario()">
+    <p-dialog header="Horario" [(visible)]="displayModal" [modal]="true" [style]="{width: '500px'}"
+        [baseZIndex]="10000" [draggable]="false" [resizable]="false" [contentStyle]="{'overflow': 'visible'}">
+
+
+
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label for="FECHAC_HORAR">Fecha</label>
+                <p-calendar [locale]="es" dateFormat="yy-mm-dd" [style]="{'width': '100%'}"
+                    formControlName="FECHAC_HORAR" [minDate]="fechaActual" placeholder="yyyy-mm-dd" required>
+                </p-calendar>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="HORARIOI_HORAR">Hora Inicio</label>
+                <p-inputMask formControlName="HORARIOI_HORAR" [style]="{'width': '100%'}" mask="99:99:99"
+                    [style]="{'width': '100%'}" slotChar="hh:mm:ss" placeholder="hh:mm:ss" required></p-inputMask>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label for="HORARIOF_HORAR">Hora Fin</label>
+                <p-inputMask formControlName="HORARIOF_HORAR" [style]="{'width': '100%'}" mask="99:99:99"
+                    [style]="{'width': '100%'}" slotChar="hh:mm:ss" required placeholder="hh:mm:ss"></p-inputMask>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer" class="text-center">
+            <p-button icon="pi pi-check" type="submit" [disabled]="form.invalid" label="Guardar" class="p-button-text"></p-button>
+            <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancelar"></p-button>
+        </ng-template>
+
+    </p-dialog>
+</form>

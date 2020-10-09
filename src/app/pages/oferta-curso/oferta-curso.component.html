@@ -1,0 +1,183 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class=" col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary" (click)="abrirCrear()">
+                                <i class="fa fa-plus"></i>
+                                Crear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <p-table #dt [value]="datos" styleClass="p-datatable-sm p-datatable-customers" dataKey="ID_OFERT"
+                    [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [loading]="cargando" [filterDelay]="0"
+                    [globalFilterFields]="['NOMBRE_CURSO','NOMBRE_TIPOC','NOMBRE_MODAL','NOMBRE_ESTOFE','CAPACITADOR']"
+                    currentPageReportTemplate="Mostrando {first} hasta {last} de {totalRecords} registros"
+                    [rowsPerPageOptions]="[10,25,50]">
+
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+
+                            <div class="col-8">
+                                <h4 class="card-title">
+                                    Cursos Ofertados ({{ datos.length }})
+                                </h4>
+                            </div>
+                            <div class="col">
+                                <div class="text-right">
+                                    <span class="p-input-icon-left">
+                                        <i class="fa fa-search"></i>
+                                        <input pInputText type="text"
+                                            (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="Busqueda Global" style="width: 100%;" />
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 3rem"></th>
+                            <th>CURSO</th>
+                            <th>TIPO CURSO</th>
+                            <th>MODALIDAD</th>
+                            <th>FECHA INICIO</th>
+                            <th>FECHA FIN</th>
+                            <th>ESTADO</th>
+                            <th class="text-nowrap">ACCIONES</th>
+                        </tr>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'NOMBRE_CURSO', 'contains')"
+                                    style="width: 98%;" class="p-column-filter">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'NOMBRE_TIPOC', 'contains')"
+                                    style="width: 98%;" class="p-column-filter">
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'NOMBRE_MODAL', 'contains')"
+                                    style="width: 98%;" class="p-column-filter">
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                                <input pInputText type="text"
+                                    (input)="dt.filter($event.target.value, 'NOMBRE_ESTOFE', 'contains')"
+                                    style="width: 98%;" class="p-column-filter">
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-fila let-expanded="expanded">
+                        <tr>
+                            <td>
+                                <a href="#" [pRowToggler]="fila">
+                                    <i [ngClass]="expanded ? 'fa fa-minus-square-o' : 'fa fa-plus-square' "></i>
+                                </a>
+                            </td>
+                            <td>{{fila.NOMBRE_CURSO}}</td>
+                            <td>{{fila.NOMBRE_TIPOC}}</td>
+                            <td>{{fila.NOMBRE_MODAL}}</td>
+                            <td>{{fila.FECHAI_OFERT}}</td>
+                            <td>{{fila.FECHAF_OFERT}}</td>
+                            <td>
+                                <div class="badges">
+                                    <span [class]="'p-tag p-tag-'+fila.COLOR_ESTOFE">{{fila.NOMBRE_ESTOFE}}</span>
+                                </div>
+
+                            </td>
+                            <td class="text-nowrap text-center">
+                                <a (click)="abrirActualizar(fila)" data-toggle="tooltip" class="cursor"
+                                    data-original-title="Actualizar" title="Actualizar">
+                                    <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                </a>
+                                <a (click)="abrirHorario(fila)" data-toggle="tooltip" data-original-title="Horarios"
+                                    title="Horarios" class="cursor">
+                                    <i class="fa fa-calendar text-inverse m-r-10"></i>
+                                </a>
+                                <a (click)="abrirMaterial(fila)" data-toggle="tooltip" data-original-title="Material"
+                                    title="Material" class="cursor">
+                                    <i class="fa fa-book text-inverse m-r-10"></i>
+                                </a>
+                                <a (click)="abrirInscritos(fila)" data-toggle="tooltip" data-original-title="Estudiantes Inscritos"
+                                title="Estudiantes Inscritos" class="cursor">
+                                <i class="fa fa-users text-inverse m-r-10"></i>
+                            </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+
+                    <ng-template pTemplate="rowexpansion" let-fila>
+                        <tr>
+                            <td [attr.colspan]="7">
+                                <div class="row">
+                                    <div class="col-3" style="text-align:center">
+                                        <img [src]="fila.FOTO_CURSO | imagen:'usuarios'" [alt]="fila.NOMBRE_CURSO"
+                                            class="w100 cursor">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="ui-g">
+                                            <div class="col-12">
+                                                <b>CAPACITADOR:</b> {{fila.CAPACITADOR}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>LUGAR:</b> {{fila.NOMBRE_LUGAR}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>CUPO DE ESTUDIANTES:</b> {{fila.CUPOS_OFERT}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>NÚMERO DE HORAS:</b> {{fila.NUMEROH_OFERT}}
+                                            </div>
+                                            <div class="col-12">
+                                                <b>NUM. INSCRITOS:</b> {{fila.INSCRITOS}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="!cargando">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row" *ngIf="datosOferta">
+                        <div class="col-3" style="text-align:center">
+                            <img [src]="datosOferta.FOTO_CURSO | imagen:'usuarios'" [alt]="datosOferta.NOMBRE_CURSO"
+                                class="w100 cursor">
+                            <br />
+                        </div>
+                        <div class="col-9">
+                            <div class="ui-g">
+                                <div class="col-12">
+                                    <b>CURSO:</b> {{datosOferta.NOMBRE_CURSO}}
+                                </div>
+                                <div class="col-12">
+                                    <b>CAPACITADOR:</b> {{datosOferta.CAPACITADOR}}
+                                </div>
+                                <div class="col-12">
+                                    <b>LUGAR:</b> {{datosOferta.NOMBRE_LUGAR}}
+                                </div>
+                                <div class="col-12">
+                                    <b>FECHA INICIO:</b> {{datosOferta.FECHAI_OFERT}}
+                                </div>
+                                <div class="col-12">
+                                    <b>FECHA FIN:</b> {{datosOferta.FECHAF_OFERT}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================== -->
+    <!-- Stats box -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="card bg-info">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><i class="fa fa-clock-o fa-2x text-white"
+                                aria-hidden="true"></i>
+                        </div>
+                        <div class="align-self-center">
+                            <h6 class="text-white m-t-10 m-b-0">Número de Horas</h6>
+                            <h2 class="m-t-0 text-white">{{datosOferta.NUMEROH_OFERT}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card bg-success">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><i class="fa fa-user-plus fa-2x text-white"
+                                aria-hidden="true"></i></div>
+                        <div class="align-self-center">
+                            <h6 class="text-white m-t-10 m-b-0">Cupos Disponibles</h6>
+                            <h2 class="m-t-0 text-white">{{datosOferta.CUPOS}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card bg-warning">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><i class="fa fa-users fa-2x text-white"
+                                aria-hidden="true"></i></div>
+                        <div class="align-self-center">
+                            <h6 class="text-white m-t-10 m-b-0">Total Cupos</h6>
+                            <h2 class="m-t-0 text-white">{{datosOferta.CUPOS_OFERT}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <div class="d-flex no-block">
+                        <div class="m-r-20 align-self-center"><i class="fa fa-calendar-check-o fa-2x text-white"
+                                aria-hidden="true"></i></div>
+                        <div class="align-self-center">
+                            <h6 class="text-white m-t-10 m-b-0">Inscripciones</h6>
+                            <h2 class="m-t-0 text-white">{{datosOferta.FECHA_MAX_OFERT}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Sales overview chart -->
+    <!-- ============================================================== -->
+
+
+
+    <div class="row">
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="lstick"></span>Formulario de Inscripción</h4>
+                        
+                    <div class="form-group">
+                        <label for="exampleInputuname">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" class="form-control" id="exampleInputuname"
+                                placeholder="Nombre del usuario" [(ngModel)]="usuario.nombre"[readOnly]="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"
+                            [(ngModel)]="usuario.email" [readOnly]="true">
+                        </div>
+                    </div>
+    
+                    <button type="button" *ngIf="!datosUsuarioInscrito" (click)="guardarInscripcion()"  class="btn btn-primary text-uppercase btn-block  waves-effect waves-light m-r-10">
+                        INSCRIBIRSE
+                    </button>
+                    <button type="button" *ngIf="datosUsuarioInscrito"  disabled="true"  class="btn btn-success text-uppercase btn-block  waves-effect waves-light m-r-10">
+                        SE ENCUENTRA INSCRITO 
+                    </button>
+                    <button type="button" *ngIf="datosUsuarioInscrito" (click)="cancelarInscripcion()"  class="btn btn-danger text-uppercase btn-block  waves-effect waves-light m-r-10">
+                        CANCELAR INSCRIPCIÓN
+                    </button>
+
+                </div>
+
+
+               
+
+
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="lstick"></span>Horario</h4>
+                </div>
+
+
+                <ul class="feeds">
+                    <li *ngFor="let fila of datosHorario" >
+                        <div class="bg-light-info"><i class="fa fa-calendar-check-o"></i></div>  {{fila.FECHAC_HORAR}}
+                        <div class="bg-light-success"><i class="fa fa fa-clock-o"></i></div> DE {{fila.HORARIOI_HORAR}} A {{fila.HORARIOF_HORAR}} 
+                    </li>
+                   
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,105 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                
+                <input type="text"
+                        class="form-control"
+                        [(ngModel)]="busqueda"
+                        placeholder="Buscar..."/>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row animated fadeIn fast"
+    *ngIf="cargando">
+    <div class="col-12">
+        
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div> 
+
+
+<div class="row"  *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Instituciones ({{ datos.length }})</h4>
+                        <h6 class="card-subtitle">
+                            Instituciones registrados en la aplicación
+                        </h6>
+                    </div>
+
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary"
+                                    (click)="abrirCrear()">
+                                <i class="fa fa-plus"></i> 
+                                Crear 
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table  class="table table-bordered" >
+                        <thead>
+                            <tr>
+                                <th class="w100">FOTO</th>
+                                <th>NOMBRE</th>
+                                <th>TELEFONO</th>
+                                <th>CORREO</th>
+                                <th class="text-nowrap">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let fila of datos | filtro: busqueda : 'NOMBRE_INSTI'"  >
+                                <td class="text-center"> 
+                                    <img [src]="fila.LOGO_INSTI | imagen:'usuarios'" 
+                                        [alt]="fila.NOMBRE_INSTI"
+                                        class="w100 cursor"
+                                        > 
+                                </td>
+                                <td>{{fila.NOMBRE_INSTI}}</td>
+                                <td>{{fila.TELEFONO_INSTI}}</td>
+                                <td>{{fila.CORREO_INSTI}}</td>
+
+                                <td class="text-nowrap text-center">
+                                    <a (click)="abrirActualizar(fila)"
+                                        data-toggle="tooltip" 
+                                        class="cursor"
+                                        data-original-title="Guardar cambios"> 
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i> 
+                                    </a>
+
+                                    <a (click)="eliminar(fila)" 
+                                        data-toggle="tooltip" 
+                                        data-original-title="Eliminar"
+                                        class="cursor"> 
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+              <!-- 
+                <button class="btn btn-secondary">Anteriores</button>
+                &nbsp;
+                <button class="btn btn-secondary">Siguientes</button> -->
+            </div>
+        </div>
+    </div>
+</div>

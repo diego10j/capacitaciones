@@ -1,0 +1,77 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-md-12" *ngIf="!cargando">
+    <form class="form p-t-10" [formGroup]="form" (submit)="guardar()">
+
+        <div class="card">
+            <div class="row card-body">
+
+                <div class="col-md-7">
+                    <h4 class="card-title">Datos de la Institución</h4>
+
+                    <div class="form-group ">
+                        <label for="NOMBRE_INSTI">Nombre</label>
+                        <input id="NOMBRE_INSTI" class="form-control" type="text" formControlName="NOMBRE_INSTI">
+                    </div>
+                    <div class="form-group ">
+
+                        <label for="TELEFONO_INSTI">Teléfono</label>
+                        <input id="TELEFONO_INSTI" class="form-control" type="text" formControlName="TELEFONO_INSTI">
+                    </div>
+                    <div class="form-group ">
+
+                        <label for="CORREO_INSTI">Correo</label>
+                        <input id="CORREO_INSTI" class="form-control" type="mail" formControlName="CORREO_INSTI">
+                    </div>
+                    <div class="form-group ">
+                        <label for="DIRECCION_INSTI">Dirección</label>
+                        <input id="DIRECCION_INSTI" class="form-control" type="text" formControlName="DIRECCION_INSTI">
+                            
+                    </div>
+
+
+
+                </div>
+
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Logo de la Institución</h4>
+                            <div class="text-center">
+                                <img *ngIf="!imgTemp" [src]="imagenUrl" class="img-avatar">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+                            </div>
+
+                            <input type="file" (change)="cambiarImagen($event.target.files[0])" style="width:100%">
+
+                            <br>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group text-center m-t-5">
+                <div class="col-md-12">
+                    <button class="btn btn-info  btn-lg text-uppercase waves-effect waves-light"
+                        type="submit" [disabled]="form.invalid">Guardar</button>
+                </div>
+            </div>
+
+        </div>
+       
+    </form>
+</div>
+
